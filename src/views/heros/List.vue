@@ -1,7 +1,8 @@
 <template>
 <div>
       <h2 class="sub-header">英雄列表</h2>
-      <a class="btn btn-success" href="add.html" @click="handleAdd">添加</a>
+      <!-- <a class="btn btn-success" href="add.html" @click="handleAdd">添加</a> -->
+      <router-link class="btn btn-success" :to="{name:'herosadd'}">添加</router-link>
       <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -53,22 +54,6 @@ import axios from 'axios';
                      this.list = data;
                    }
                  })
-          },
-          //添加英雄
-          handleAdd(){
-            axios.post('http://localhost:3000/heros',{
-              // 页面用户填入数据
-            })
-                .then((res)=>{
-                  if(res.status === 201){
-                    this.loadData();
-                  }else{
-                    alert('添加失败');
-                  }
-                })
-                .catch((err)=>{
-                  console.log(err);
-                })
           },
           //删除英雄
           handleDel(id){
