@@ -1,7 +1,7 @@
 <template>
 <div>
       <h2 class="sub-header">英雄列表</h2>
-      <a class="btn btn-success" href="add.html">添加</a>
+      <a class="btn btn-success" href="add.html" @click="handleAdd">添加</a>
       <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -20,7 +20,7 @@
                 <td>
                   <a href="edit.html">编辑</a>
                   &nbsp;&nbsp;
-                  <a href="javascript:window.confirm('Are you sure?')">删除</a>
+                  <a href="#" @click.prevent="handleDel(item.id)">删除</a>
                 </td>
               </tr>
             </tbody>
@@ -29,7 +29,7 @@
 </div>
 </template>
 <script>
-//导入axios
+//1 安装并导入axios
 import axios from 'axios';
     export default {
         data(){
@@ -39,6 +39,7 @@ import axios from 'axios';
             ]
           }
         },
+        // 在created钩子函数中加载数据 
         created(){
           this.loadData();
         },
@@ -52,6 +53,37 @@ import axios from 'axios';
                      this.list = data;
                    }
                  })
+          },
+          //添加英雄
+          handleAdd(){
+            axios.post('http://localhost:3000/heros',{
+              // 页面用户填入数据
+            })
+                .then((res)=>{
+                  if(res.status === 201){
+                    this.loadData();
+                  }else{
+                    alert('添加失败');
+                  }
+                })
+                .catch((err)=>{
+                  console.log(err);
+                })
+          },
+          //删除英雄
+          handleDel(id){
+            if(!confirm('你确认删除吗？')){
+                return;
+            }
+              axios.delete(`http://localhost:3000/heros/${id}`)
+              .then((res)=>{
+                const {status, data} = res;
+                if(status === 200){
+                  this.loadData();
+                }else{
+                  alert('删除失败');
+                }
+              })
           }
         }
     };
