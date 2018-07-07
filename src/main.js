@@ -8,6 +8,11 @@ import router from './routes/router'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 //3 将本身的css 放到assets 中 并引入
 import './assets/css/index.css'
+//导入axios 
+import axios from 'axios';
+// 配置baseurl
+axios.defaults.baseURL ='http://localhost:3000/';
+Vue.prototype.$http = axios;
 
 new Vue({
   el: '#app',

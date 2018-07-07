@@ -16,7 +16,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 export default {
     //绑定文本框 获取数据
         data(){
@@ -30,8 +29,8 @@ export default {
     methods:{
         //添加英雄
         handleAdd(){
-        axios
-        .post('http://localhost:3000/heros',this.formData)
+        this.$http
+        .post('heros',this.formData)
         .then((res)=>{
             if(res.status === 201){
                 // 添加成功 跳转页面 

@@ -16,7 +16,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 export default {
     //绑定文本框 获取数据
         data(){
@@ -34,7 +33,7 @@ export default {
     },
     methods:{
         getHeroById(heroId){
-        axios.get(`http://localhost:3000/heros/${this.heroId}`)
+        this.$http.get(`heros/${this.heroId}`)
              .then((res)=>{
                 const {status, data} = res;
                 if(status === 200){
@@ -48,8 +47,8 @@ export default {
         },
           // 渲染数据结束 在此提交数据完成修改
         handleEdit(){
-            axios
-                .patch(`http://localhost:3000/heros/${this.heroId}`, this.formData)
+            this.$http
+                .patch(`heros/${this.heroId}`, this.formData)
                 .then((res)=>{
                     if(res.status === 200){
                         this.$router.push({name:'heros'});

@@ -32,7 +32,7 @@
 </template>
 <script>
 //1 安装并导入axios
-import axios from 'axios';
+
     export default {
         data(){
           return {
@@ -48,7 +48,7 @@ import axios from 'axios';
         methods:{
           // 加载英雄列表
           loadData(){
-            axios.get('http://localhost:3000/heros')
+            this.$http.get('heros')
                  .then((res)=>{
                    const {status, data} = res;
                    if(status === 200){
@@ -61,7 +61,7 @@ import axios from 'axios';
             if(!confirm('你确认删除吗？')){
                 return;
             }
-              axios.delete(`http://localhost:3000/heros/${id}`)
+              this.$http.delete(`heros/${id}`)
               .then((res)=>{
                 const {status, data} = res;
                 if(status === 200){
